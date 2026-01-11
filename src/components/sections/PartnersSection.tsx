@@ -2,6 +2,28 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ExternalLink } from 'lucide-react';
+import { 
+  SiSupabase, 
+  SiMeta, 
+  SiOpenai, 
+  SiVercel, 
+  SiStripe, 
+  SiGithub 
+} from 'react-icons/si';
+
+// Custom SVG icons for brands not in react-icons
+const HostingerIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+    <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm6.75 15.75L12 19.5l-6.75-3.75v-7.5L12 4.5l6.75 3.75v7.5z"/>
+  </svg>
+);
+
+const GroqIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1V6h2v2c0 .55-.45 1-1 1z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+);
 
 const partners = [
   { 
@@ -10,56 +32,64 @@ const partners = [
     url: 'https://hostinger.com.br?REFERRALCODE=inovapro',
     isPaid: true,
     color: 'from-purple-500 to-violet-600',
-    icon: '🌐'
+    glowColor: 'rgba(168,85,247,0.4)',
+    Icon: HostingerIcon
   },
   { 
     name: 'Supabase', 
     type: 'Backend', 
     url: 'https://supabase.com',
     color: 'from-emerald-500 to-green-600',
-    icon: '⚡'
+    glowColor: 'rgba(52,211,153,0.4)',
+    Icon: SiSupabase
   },
   { 
     name: 'Meta', 
     type: 'Tecnologia', 
     url: 'https://meta.com',
     color: 'from-blue-500 to-cyan-500',
-    icon: '📱'
+    glowColor: 'rgba(59,130,246,0.4)',
+    Icon: SiMeta
   },
   { 
     name: 'OpenAI', 
     type: 'Inteligência Artificial', 
     url: 'https://openai.com',
-    color: 'from-gray-400 to-gray-600',
-    icon: '🤖'
+    color: 'from-gray-300 to-gray-500',
+    glowColor: 'rgba(255,255,255,0.3)',
+    Icon: SiOpenai
   },
   { 
     name: 'Groq', 
     type: 'IA de Alta Performance', 
     url: 'https://groq.com',
     color: 'from-orange-500 to-red-500',
-    icon: '🚀'
+    glowColor: 'rgba(249,115,22,0.4)',
+    Icon: GroqIcon
   },
   { 
     name: 'Vercel', 
     type: 'Deploy', 
     url: 'https://vercel.com',
     color: 'from-white to-gray-300',
-    icon: '▲'
+    glowColor: 'rgba(255,255,255,0.3)',
+    Icon: SiVercel
   },
   { 
     name: 'Stripe', 
     type: 'Pagamentos', 
     url: 'https://stripe.com',
     color: 'from-indigo-500 to-purple-600',
-    icon: '💳'
+    glowColor: 'rgba(99,102,241,0.4)',
+    Icon: SiStripe
   },
   { 
     name: 'GitHub', 
     type: 'Código', 
     url: 'https://github.com',
-    color: 'from-gray-600 to-gray-800',
-    icon: '🐙'
+    color: 'from-gray-400 to-gray-600',
+    glowColor: 'rgba(156,163,175,0.4)',
+    Icon: SiGithub
   },
 ];
 
@@ -129,21 +159,16 @@ export const PartnersSection = () => {
                       </span>
                     )}
                     <div className="flex items-center gap-4">
-                      <div className={`
-                        w-14 h-14 rounded-xl bg-gradient-to-br ${partner.color} 
-                        flex items-center justify-center text-2xl
-                        shadow-lg group-hover:shadow-xl
-                        group-hover:scale-110 transition-transform duration-300
-                      `}
-                      style={{
-                        boxShadow: `0 0 20px ${partner.color.includes('purple') ? 'rgba(168,85,247,0.3)' : 
-                                               partner.color.includes('emerald') ? 'rgba(52,211,153,0.3)' :
-                                               partner.color.includes('blue') ? 'rgba(59,130,246,0.3)' :
-                                               partner.color.includes('orange') ? 'rgba(249,115,22,0.3)' :
-                                               'rgba(255,255,255,0.2)'}`
-                      }}
+                      <div 
+                        className={`
+                          w-14 h-14 rounded-xl bg-gradient-to-br ${partner.color} 
+                          flex items-center justify-center text-white
+                          shadow-lg group-hover:shadow-xl
+                          group-hover:scale-110 transition-transform duration-300
+                        `}
+                        style={{ boxShadow: `0 0 20px ${partner.glowColor}` }}
                       >
-                        {partner.icon}
+                        <partner.Icon className="w-7 h-7" />
                       </div>
                       <div>
                         <h4 className="font-bold text-foreground text-lg">{partner.name}</h4>
@@ -188,20 +213,15 @@ export const PartnersSection = () => {
                 </span>
               )}
               
-              <div className={`
-                w-16 h-16 rounded-2xl bg-gradient-to-br ${partner.color} 
-                flex items-center justify-center text-3xl mb-4
-                group-hover:scale-110 transition-transform duration-300
-              `}
-              style={{
-                boxShadow: `0 0 30px ${partner.color.includes('purple') ? 'rgba(168,85,247,0.4)' : 
-                                       partner.color.includes('emerald') ? 'rgba(52,211,153,0.4)' :
-                                       partner.color.includes('blue') ? 'rgba(59,130,246,0.4)' :
-                                       partner.color.includes('orange') ? 'rgba(249,115,22,0.4)' :
-                                       'rgba(255,255,255,0.3)'}`
-              }}
+              <div 
+                className={`
+                  w-16 h-16 rounded-2xl bg-gradient-to-br ${partner.color} 
+                  flex items-center justify-center text-white mb-4
+                  group-hover:scale-110 transition-transform duration-300
+                `}
+                style={{ boxShadow: `0 0 30px ${partner.glowColor}` }}
               >
-                {partner.icon}
+                <partner.Icon className="w-8 h-8" />
               </div>
               
               <h4 className="font-bold text-foreground text-xl mb-1">{partner.name}</h4>
