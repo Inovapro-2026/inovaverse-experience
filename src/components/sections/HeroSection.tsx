@@ -88,9 +88,14 @@ export const HeroSection = () => {
           >
             Explorar Projetos
           </button>
-          <button className="btn-outline-glow">
+          <a 
+            href="https://www.instagram.com/inovapro.technology/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-outline-glow"
+          >
             Falar com a Inovapro
-          </button>
+          </a>
         </motion.div>
       </div>
       
