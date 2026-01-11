@@ -7,6 +7,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { MissionSection } from '@/components/sections/MissionSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { Footer } from '@/components/sections/Footer';
+import { AIChatWidget } from '@/components/AIChatWidget';
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <CTASection />
       </main>
       <Footer />
+      <AIChatWidget />
     </div>
   );
 };

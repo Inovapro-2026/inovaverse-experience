@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Rocket, Users, MessageCircle, ArrowRight } from 'lucide-react';
+import { Rocket, Users, MessageCircle, ArrowRight, Instagram } from 'lucide-react';
 
 export const CTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const scrollToProjects = () => {
+    document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToPartners = () => {
+    document.getElementById('parceiros')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section className="relative py-32 overflow-hidden" ref={ref}>
@@ -31,6 +39,24 @@ export const CTASection = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="absolute right-1/4 bottom-1/4 w-80 h-80 rounded-full blur-3xl"
           style={{ background: 'radial-gradient(circle, hsl(220, 80%, 50%, 0.3) 0%, transparent 70%)' }}
+        />
+        
+        {/* Floating 3D elements */}
+        <motion.div
+          animate={{ 
+            y: [0, -30, 0],
+            rotateZ: [0, 10, -10, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 right-20 w-24 h-24 rounded-3xl bg-gradient-to-br from-primary/20 to-transparent border border-primary/20 backdrop-blur-sm"
+        />
+        <motion.div
+          animate={{ 
+            y: [0, 20, 0],
+            rotateZ: [0, -5, 5, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-32 left-16 w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/20 to-transparent border border-secondary/20 backdrop-blur-sm"
         />
       </div>
       
@@ -67,19 +93,30 @@ export const CTASection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
-            <button className="btn-hero group flex items-center justify-center gap-3">
+            <button 
+              onClick={scrollToProjects}
+              className="btn-hero group flex items-center justify-center gap-3"
+            >
               <Rocket className="w-5 h-5" />
               <span>Conhecer Projetos</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="btn-outline-glow flex items-center justify-center gap-3">
+            <button 
+              onClick={scrollToPartners}
+              className="btn-outline-glow flex items-center justify-center gap-3"
+            >
               <Users className="w-5 h-5" />
               <span>Ser Parceiro</span>
             </button>
-            <button className="btn-outline-glow flex items-center justify-center gap-3">
-              <MessageCircle className="w-5 h-5" />
+            <a 
+              href="https://www.instagram.com/inovapro.technology/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline-glow flex items-center justify-center gap-3"
+            >
+              <Instagram className="w-5 h-5" />
               <span>Falar com a Inovapro</span>
-            </button>
+            </a>
           </motion.div>
 
           {/* Stats or trust indicators */}
@@ -94,12 +131,16 @@ export const CTASection = () => {
               { value: '100%', label: 'Foco em Inovação' },
               { value: '∞', label: 'Potencial' },
             ].map((stat, index) => (
-              <div key={stat.label} className="text-center">
+              <motion.div 
+                key={stat.label} 
+                className="text-center"
+                whileHover={{ scale: 1.1 }}
+              >
                 <div className="text-3xl md:text-4xl font-bold font-display text-gradient mb-1">
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
